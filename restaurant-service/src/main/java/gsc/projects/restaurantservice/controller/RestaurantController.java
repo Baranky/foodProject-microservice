@@ -3,7 +3,6 @@ package gsc.projects.restaurantservice.controller;
 
 import gsc.projects.restaurantservice.dto.RestaurantDto;
 import gsc.projects.restaurantservice.service.RestaurantServiceImp;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +11,14 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/restaurant")
-@AllArgsConstructor
+
 public class RestaurantController {
 
     private final RestaurantServiceImp restaurantServiceImp;
+
+    public RestaurantController(RestaurantServiceImp restaurantServiceImp) {
+        this.restaurantServiceImp = restaurantServiceImp;
+    }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody RestaurantDto restaurantDto){

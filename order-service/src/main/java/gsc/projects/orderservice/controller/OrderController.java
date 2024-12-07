@@ -3,7 +3,6 @@ package gsc.projects.orderservice.controller;
 
 import gsc.projects.orderservice.dto.OrderCreateDto;
 import gsc.projects.orderservice.service.OrderServiceImp;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +11,14 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/order")
-@AllArgsConstructor
+
 public class OrderController {
 
     private final OrderServiceImp orderServiceImp;
+
+    public OrderController(OrderServiceImp orderServiceImp) {
+        this.orderServiceImp = orderServiceImp;
+    }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody OrderCreateDto orderCreateDto){

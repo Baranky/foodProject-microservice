@@ -7,7 +7,6 @@ import gsc.projects.restaurantservice.model.Restaurant;
 import gsc.projects.restaurantservice.rabbit.producer.RestaurantProducer;
 import gsc.projects.restaurantservice.repository.OrderRepository;
 import gsc.projects.restaurantservice.repository.RestaurantRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,7 +16,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class RestaurantServiceImp {
 
 
@@ -25,8 +23,11 @@ public class RestaurantServiceImp {
     private final RestaurantProducer restaurantProducer;
     private final OrderRepository orderRepository;
 
-
-
+    public RestaurantServiceImp(RestaurantRepository restaurantRepository, RestaurantProducer restaurantProducer, OrderRepository orderRepository) {
+        this.restaurantRepository = restaurantRepository;
+        this.restaurantProducer = restaurantProducer;
+        this.orderRepository = orderRepository;
+    }
 
 
     public RestaurantDto createRestaurant(RestaurantDto restaurantDto) {

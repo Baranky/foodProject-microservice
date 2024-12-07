@@ -4,17 +4,18 @@ package gsc.projects.usersservice.service;
 import gsc.projects.usersservice.dto.UserDto;
 import gsc.projects.usersservice.model.User;
 import gsc.projects.usersservice.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImp {
 
     private final UserRepository userRepository;
 
+    public UserServiceImp(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
 
     public UserDto createUser(UserDto userDto) {

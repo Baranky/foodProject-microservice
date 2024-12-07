@@ -3,17 +3,19 @@ package gsc.projects.usersservice.controller;
 
 import gsc.projects.usersservice.dto.UserDto;
 import gsc.projects.usersservice.service.UserServiceImp;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
-@AllArgsConstructor
 public class UserController {
 
     private final UserServiceImp userServiceImp;
+
+    public UserController(UserServiceImp userServiceImp) {
+        this.userServiceImp = userServiceImp;
+    }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody UserDto userDto){

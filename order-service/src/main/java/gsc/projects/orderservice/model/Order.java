@@ -1,25 +1,26 @@
 package gsc.projects.orderservice.model;
 
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
+
+import org.springframework.data.redis.core.RedisHash;
+
+import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
 
-@Entity
-@Table(name = "orders")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+@RedisHash("orders")
+public class Order  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     private UUID uuidOrder= UUID.randomUUID();

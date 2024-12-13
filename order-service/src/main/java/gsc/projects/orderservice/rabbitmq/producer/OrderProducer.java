@@ -1,7 +1,6 @@
 package gsc.projects.orderservice.rabbitmq.producer;
 
 
-import gsc.projects.orderservice.dto.OrderDto;
 import gsc.projects.orderservice.dto.OrderEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

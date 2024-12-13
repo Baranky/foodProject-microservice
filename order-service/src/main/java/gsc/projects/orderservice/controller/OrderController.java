@@ -2,6 +2,7 @@ package gsc.projects.orderservice.controller;
 
 
 import gsc.projects.orderservice.dto.OrderCreateDto;
+import gsc.projects.orderservice.model.Order;
 import gsc.projects.orderservice.service.OrderServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +23,12 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody OrderCreateDto orderCreateDto){
-        return new ResponseEntity<>(orderServiceImp.createOrder(orderCreateDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(orderServiceImp.saveOrderToRedis(orderCreateDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("/uuid/{uuidOrder}")
+    @GetMapping("/{uuidOrder}")
     public ResponseEntity<?> getOrder(@PathVariable ("uuidOrder") UUID uuid){
         return ResponseEntity.ok(orderServiceImp.getOrderByUuid(uuid));
     }
 
-    @GetMapping("/{userEmail}")
-    public ResponseEntity<?> getOrders(@PathVariable ("userEmail") String userEmail){
-        return ResponseEntity.ok(orderServiceImp.getAllOrders(userEmail));
-    }
 }

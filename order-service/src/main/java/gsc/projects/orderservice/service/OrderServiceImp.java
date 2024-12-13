@@ -7,51 +7,78 @@ import gsc.projects.orderservice.dto.OrderEvent;
 import gsc.projects.orderservice.dto.UserDto;
 import gsc.projects.orderservice.model.Order;
 import gsc.projects.orderservice.rabbitmq.producer.OrderProducer;
-import gsc.projects.orderservice.repository.OrderRepository;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
-
 public class OrderServiceImp {
     private  final APIClient apiClient;
-    private final OrderRepository orderRepository;
     private final OrderProducer orderProducer;
+    private  final RedisTemplate redisTemplate;
 
-    public OrderServiceImp(APIClient apiClient, OrderRepository orderRepository, OrderProducer orderProducer) {
+    public OrderServiceImp(APIClient apiClient, OrderProducer orderProducer, RedisTemplate redisTemplate) {
         this.apiClient = apiClient;
-        this.orderRepository = orderRepository;
         this.orderProducer = orderProducer;
-    }
-
-    public OrderDto createOrder(OrderCreateDto orderCreateDto) {
-       Order newOrder = fromCreateDto(orderCreateDto);
-       orderRepository.save(newOrder);
-       OrderDto orderDto = toDto(newOrder);
-       orderProducer.sendOrder(toEvent(newOrder));
-       return orderDto;
+        this.redisTemplate = redisTemplate;
     }
 
     public OrderDto getOrderByUuid(UUID uuid) {
-        Order existingOrder = orderRepository.findByUuidOrder(uuid);
-        if(existingOrder == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
+        String orderKey = "orders:" + uuid.toString();
+        Map<String, String> orderData = redisTemplate.opsForHash().entries(orderKey);
+        if (orderData == null || orderData.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bu UUID için herhangi bir sipariş bulunamadı: " + uuid);
         }
-        return toDto(existingOrder);
+        Order order = mapHashToOrder(orderData);
+        return toDto(order);
     }
 
 
-    public List<OrderDto> getAllOrders(String userEmail) {
-        return orderRepository.findByUserEmail(userEmail).stream()
-                .map(this::toDto)
-                .toList();
+    public OrderDto saveOrderToRedis(OrderCreateDto orderCreateDto) {
+        Order newOrder = fromCreateDto(orderCreateDto);
+        String redisKey = "orders:" + newOrder.getUuidOrder();
+        redisTemplate.opsForHash().putAll(redisKey, mapOrderToHash(newOrder));
+        orderProducer.sendOrder(toEvent(newOrder));
+        return toDto(newOrder);
     }
 
-    public OrderDto toDto(Order order){
+
+    private Map<String, Object> mapOrderToHash(Order order) {
+        Map<String, Object> hash = new HashMap<>();
+        hash.put("id",order.getId());
+        hash.put("uuidOrder", order.getUuidOrder().toString());
+        hash.put("restaurantEmail", order.getRestaurantEmail());
+        hash.put("userEmail", order.getUserEmail());
+        hash.put("foodAndQuantity", order.getFoodAndQuantity());
+        return hash;
+    }
+
+    private Order mapHashToOrder(Map<String, String> orderData) {
+            Order order = new Order();
+
+            String uuidOrder = removeQuotes(orderData.get("uuidOrder"));
+            String userEmail = removeQuotes(orderData.get("userEmail"));
+            String restaurantEmail = removeQuotes(orderData.get("restaurantEmail"));
+            Object foodAndQuantityObj = orderData.get("foodAndQuantity");
+            Map<String, Double> foodAndQuantityMap = (Map<String, Double>) foodAndQuantityObj;
+
+            order.setUuidOrder(UUID.fromString(uuidOrder));
+            order.setUserEmail(userEmail);
+            order.setRestaurantEmail(restaurantEmail);
+            order.setFoodAndQuantity(foodAndQuantityMap);
+            return order;
+    }
+
+    private String removeQuotes(String value) {
+        return value != null ? value.replace("\"", "\"") : null;
+    }
+
+    private OrderDto toDto(Order order){
         return OrderDto.builder()
                 .uuidOrder(order.getUuidOrder())
                 .restaurantEmail(order.getRestaurantEmail())
@@ -60,8 +87,7 @@ public class OrderServiceImp {
                 .build();
     }
 
-
-    public Order fromCreateDto(OrderCreateDto orderCreateDto){
+    private Order fromCreateDto(OrderCreateDto orderCreateDto){
        Order order=new Order();
        order.setUuidOrder(order.getUuidOrder());
        order.setRestaurantEmail(orderCreateDto.restaurantEmail());
@@ -70,7 +96,7 @@ public class OrderServiceImp {
        return order;
     }
 
-    public OrderEvent toEvent(Order order){
+    private OrderEvent toEvent(Order order){
         UserDto userDto = apiClient.getUser(order.getUserEmail());
         return OrderEvent.builder()
                 .uuidOrder(order.getUuidOrder())

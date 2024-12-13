@@ -1,4 +1,4 @@
-package gsc.projects.shipppingservice.rabbit.config;
+package gsc.projects.restaurantservice.rabbitmq.config;
 
 
 import org.springframework.amqp.core.*;
@@ -11,18 +11,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitMqConfig {
+public class RabbitMQConfig {
 
-    @Value("${spring.rabbitmq.exchange}")
+    @Value("${rabbitmq.exchange.name}")
     private String exchange;
-    @Value("${spring.rabbitmq.routing-key}")
+    @Value("${rabbitmq.producer.queue.name}")
+    private String queue;
+    @Value("${rabbitmq.routing.key}")
     private String routingKey;
-    @Value("${spring.rabbitmq.producer.queue.name}")
-    private String queueName;
 
     @Bean
     public Queue createQueue(){
-        return new Queue(queueName);
+        return new Queue(queue);
     }
 
     @Bean

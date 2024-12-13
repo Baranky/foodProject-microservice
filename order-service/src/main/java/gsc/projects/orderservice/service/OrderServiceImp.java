@@ -6,7 +6,6 @@ import gsc.projects.orderservice.dto.OrderDto;
 import gsc.projects.orderservice.dto.OrderEvent;
 import gsc.projects.orderservice.dto.UserDto;
 import gsc.projects.orderservice.model.Order;
-import gsc.projects.orderservice.rabbitmq.producer.OrderProducer;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

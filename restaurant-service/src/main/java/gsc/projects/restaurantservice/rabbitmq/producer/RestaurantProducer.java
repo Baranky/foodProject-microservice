@@ -1,4 +1,4 @@
-package gsc.projects.restaurantservice.rabbit.producer;
+package gsc.projects.restaurantservice.rabbitmq.producer;
 
 
 import gsc.projects.restaurantservice.dto.OrderEventDto;

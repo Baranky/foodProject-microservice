@@ -1,4 +1,4 @@
-package gsc.projects.orderservice.rabbitmq.producer;
+package gsc.projects.orderservice.service;
 
 
 import gsc.projects.orderservice.dto.OrderEvent;

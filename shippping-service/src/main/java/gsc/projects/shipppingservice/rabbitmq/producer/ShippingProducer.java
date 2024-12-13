@@ -1,4 +1,4 @@
-package gsc.projects.shipppingservice.rabbit.producer;
+package gsc.projects.shipppingservice.rabbitmq.producer;
 
 
 import gsc.projects.shipppingservice.model.ShippingEvent;

@@ -1,4 +1,4 @@
-package gsc.projects.shipppingservice.rabbit.consumer;
+package gsc.projects.shipppingservice.rabbitmq.consumer;
 
 import gsc.projects.shipppingservice.dto.OrderEventDto;
 import gsc.projects.shipppingservice.service.ShippingServiceImp;

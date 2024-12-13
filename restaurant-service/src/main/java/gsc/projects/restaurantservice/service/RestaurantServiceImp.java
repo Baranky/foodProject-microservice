@@ -4,7 +4,7 @@ package gsc.projects.restaurantservice.service;
 import gsc.projects.restaurantservice.dto.*;
 import gsc.projects.restaurantservice.model.Order;
 import gsc.projects.restaurantservice.model.Restaurant;
-import gsc.projects.restaurantservice.rabbit.producer.RestaurantProducer;
+import gsc.projects.restaurantservice.rabbitmq.producer.RestaurantProducer;
 import gsc.projects.restaurantservice.repository.OrderRepository;
 import gsc.projects.restaurantservice.repository.RestaurantRepository;
 import org.springframework.http.HttpStatus;

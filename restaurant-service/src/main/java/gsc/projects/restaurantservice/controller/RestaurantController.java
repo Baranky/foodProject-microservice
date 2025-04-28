@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/restaurant")
+@RequestMapping("/restaurant")
 
 public class RestaurantController {
 
@@ -19,6 +19,11 @@ public class RestaurantController {
     public RestaurantController(RestaurantServiceImp restaurantServiceImp) {
         this.restaurantServiceImp = restaurantServiceImp;
     }
+    @GetMapping("/test")
+    public ResponseEntity<String> helloWorld() {
+        return ResponseEntity.ok("Hello World from restaurant Service");
+    }
+
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody RestaurantDto restaurantDto){

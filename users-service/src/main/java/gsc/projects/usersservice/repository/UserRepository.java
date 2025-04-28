@@ -1,12 +1,13 @@
-package gsc.projects.usersservice.repository;
+package gsc.projects.usersService.repository;
 
 
-import gsc.projects.usersservice.model.User;
+import gsc.projects.usersService.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByUserEmail(String userEmail);
-}
+    User findByUserEmail(String userEmail);}

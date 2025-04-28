@@ -1,5 +1,4 @@
-package gsc.projects.usersservice.dto;
-
+package gsc.projects.usersService.dto;
 
 import lombok.Builder;
 

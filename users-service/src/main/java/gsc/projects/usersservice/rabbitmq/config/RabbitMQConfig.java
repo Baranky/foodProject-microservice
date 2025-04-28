@@ -1,4 +1,4 @@
-package gsc.projects.usersservice.rabbitmq.config;
+package gsc.projects.usersService.rabbitmq.config;
 
 
 import org.springframework.amqp.core.AmqpTemplate;

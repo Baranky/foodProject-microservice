@@ -1,27 +1,31 @@
-package gsc.projects.usersservice.model;
+package gsc.projects.usersService.model;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    private String name;
 
-    private String userName;
+    private String username;
 
     private int age;
 
     private String userEmail;
-
     private String userAddress;
 
 
 }
+
+

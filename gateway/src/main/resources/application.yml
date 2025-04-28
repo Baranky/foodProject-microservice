@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/security_db
+    username: postgres
+    password: 1905
+  servlet:
+    multipart:
+      enabled: true
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: restaurant-service
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/restaurant/**
+
+
+        - id: users-service
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/user/**
+
+
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order/**
+
+
+        - id: shipping-service
+          uri: lb://SHIPPING-SERVICE
+          predicates:
+            - Path=/shipping/**
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  # Eureka servisi URL'si
+    register-with-eureka: true
+    fetch-registry: true
+jwt:
+  key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBiwhez2OFSgSyEFS6ezqNVGadEQCBGeLm409kCXF0rZ6QWaxxpj75yGuKzge59oCbakzz38utr8tCgH7qZ98pJ/AhgxaFb6/mWNExkgOOagSB45FKvPRoq/3DwvdDtUiP9IRWK96fyu+fAecVTCYDbZHC4oAmWQHZO3xOvA4R4wIDAQAB
+
+
+
+

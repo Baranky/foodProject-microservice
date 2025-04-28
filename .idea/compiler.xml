@@ -8,24 +8,33 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="kapinda" />
-        <module name="order-service" />
+        <module name="restaurant-service" />
         <module name="users-service" />
-        <module name="shippping-service" />
+        <module name="order-service" />
+        <module name="eurekaServer" />
+        <module name="gateway" />
+        <module name="shipping-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api-gateway" target="17" />
       <module name="restaurant-service (1)" target="17" />
       <module name="restaurant-service (2)" target="17" />
+      <module name="security-service" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
+      <module name="eurekaServer" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="kapinda" options="-parameters" />
       <module name="order-service" options="-parameters" />
       <module name="restaurant-service" options="-parameters" />
       <module name="restaurant-service (1)" options="-parameters" />
       <module name="restaurant-service (2)" options="-parameters" />
-      <module name="shippping-service" options="-parameters" />
+      <module name="security-service" options="-parameters" />
+      <module name="shipping-service" options="-parameters" />
       <module name="users-service" options="-parameters" />
     </option>
   </component>

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration("rabbitConfig")
 public class RabbitMQConfig {
 
     @Value("${rabbitmq.exchange.name}")
@@ -20,24 +20,24 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.routing.key}")
     private String routingKey;
 
-    @Bean
+    @Bean("rabbitCreateQueue")
     public Queue createQueue(){
         return new Queue(queue);
     }
 
-    @Bean
+    @Bean("rabbitCreateExchange")
     public TopicExchange createExchange(){
         return new TopicExchange(exchange);
     }
 
-    @Bean
+    @Bean("rabbitBinding")
     public Binding binding(){
         return BindingBuilder.bind(createQueue())
                 .to(createExchange())
                 .with(routingKey);
     }
 
-    @Bean
+    @Bean("rabbitMessageConverter")
     public MessageConverter messageConverter(){
         return new Jackson2JsonMessageConverter();
     }

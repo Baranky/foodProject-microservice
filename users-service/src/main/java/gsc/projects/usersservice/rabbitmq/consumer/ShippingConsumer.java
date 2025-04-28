@@ -1,7 +1,6 @@
-package gsc.projects.usersservice.rabbitmq.consumer;
+package gsc.projects.usersService.rabbitmq.consumer;
 
-
-import gsc.projects.usersservice.dto.ShippingEvent;
+import gsc.projects.usersService.dto.ShippingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

@@ -1,4 +1,4 @@
-package gsc.projects.shipppingservice.rabbitmq.config;
+package gsc.projects.shippingservice.rabbitmq.config;
 
 
 import org.springframework.amqp.core.*;

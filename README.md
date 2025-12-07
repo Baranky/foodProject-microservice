@@ -1,4 +1,13 @@
 # FoodProject Microservice
+![Java](https://img.shields.io/badge/Java-17-orange?style=flat-square&logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.0-green?style=flat-square&logo=springboot)
+![Microservices](https://img.shields.io/badge/Microservices-Architecture-blueviolet?style=flat-square)
+![Eureka](https://img.shields.io/badge/Eureka-Discovery-6DB33F?style=flat-square&logo=spring&logoColor=white)
+![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Messaging-FF6600?style=flat-square&logo=rabbitmq&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-Cache-DC382D?style=flat-square&logo=redis&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-336791?style=flat-square&logo=postgresql)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?style=flat-square&logo=docker)
+![License](https://img.shields.io/badge/License-Apache_2.0-lightgrey?style=flat-square)
 
 FoodProject, yemek sipariş akışını mikroservis mimarisi ile yöneten bir örnek projedir. Amaç; kullanıcı, restoran, sipariş ve kargo süreçlerini bağımsız servisler aracılığıyla yönetmek, ölçeklenebilir ve esnek bir yapı oluşturmaktır.
 
